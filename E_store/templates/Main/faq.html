@@ -1,0 +1,34 @@
+{% extends 'Main/base.html' %}
+{% block content %}
+<div class="login-register-area pb-100px pt-100px faq-area">
+    <div class="container">
+        <div class="row">
+            <div class="ml-auto mr-auto col-lg-9">
+                <div class="checkout-wrapper">
+                    <div class="inner-descripe" data-aos="fade-up" data-aos-delay="200">
+                        <h4 class="title">Below are frequently asked questions, you may find your answer 
+                        </h4> 
+                    </div>
+                    <div id="faq" class="panel-group">
+                        {% for i in faq %}
+                        
+                        <div class="panel panel-default single-my-account m-0" data-aos="fade-up" data-aos-delay="200">
+                            <div class="panel-heading my-account-title">
+                                <h3 class="panel-title"><a data-bs-toggle="collapse" href="#my-account-{{ forloop.counter }}" style="margin-left: -20px">{{i.question}}</a>
+                                </h3>
+                            </div>
+                            <div id="my-account-{{ forloop.counter }}" class="panel-collapse collapse" data-bs-parent="#faq">
+                                <div class="panel-body"style="margin-left: 20px;">{{i.answer}}</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <br>
+                    <p>If you Can't find your answer <a href="{% url 'contact' %}">Contact Us</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

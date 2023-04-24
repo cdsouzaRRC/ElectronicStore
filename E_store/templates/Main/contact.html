@@ -1,0 +1,42 @@
+{% extends 'Main/base.html' %}
+
+{% block content %}
+        <div class="contact-area">
+            <div class="container">
+                <div class="contact-wrapper">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="contact-form">
+                                <div class="contact-title mb-30">
+                                    <h2 class="title">Send in your Query</h2>
+                                </div>
+                                <form class="contact-form-style"  action="/contact/" method="post">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <input name="name" placeholder="Name*" id="contactemail" type="text" required/>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <input name="email" placeholder="Email*" type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title="Please Enter a Valid Email" required/>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <input name="subject" placeholder="Subject*" type="text" required />
+                                        </div>
+                                        <div class="col-lg-12 text-center">
+                                            <textarea name="message" placeholder="Your Message*" required></textarea>
+                                            <button class="btn btn-primary" type="submit">Send Message</button>
+                                            <br><br>
+                                        </div>
+                                        <br>
+                                        <br>
+                                    </div>
+                                </form>
+                                <p class="form-messege"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

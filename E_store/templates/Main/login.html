@@ -1,0 +1,45 @@
+{% extends 'Main/Base.html' %}
+{% block content %}
+{% load static %}
+ <div class="login-register-area pt-100px pb-100px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+                <div class="login-register-wrapper">
+                    <div class="login-register-tab-list nav">
+                        <img src="{% static 'assets/images/logo/logos.jpg' %}" style="width: 230px;" /> 
+                    </div>
+                    <center>
+                    <div class="tab-content">
+                        <div id="lg1" class="tab-pane active" style="width: 510px;">
+                            <div class="login-form-container">
+                                <h3 style="color: #266bf9;text-align:center;margin-top: -50px;">Login</h3><br>
+                                <div class="login-register-form">
+                                    <form action="{% url 'login' %}" method="post" >
+                                        {% csrf_token %}
+                                        <input type="text" name="username" placeholder="Username" required />
+                                        <input type="password" name="password" placeholder="Password" pattern=".{8,}" title="Min 8 characters" required />
+                                        <br>
+                                        <br>
+                                        <div class="button-box">
+                                            <div class="login-toggle-btn">
+                                                <button type="submit" style="float:right;"><span>Login</span></button>
+                                            </div>  
+                                        </div> 
+                                    </form>
+                                </div>
+                                <br>
+                                <br>
+                                <div class="login-toggl" style="text-align: center;">
+                                <a href="{% url 'signup' %}" style="color: #266bf9">New to Gadgets Zone? Create an account</a>
+                                </div>
+                            </div>  
+                        </div>  
+                    </div>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

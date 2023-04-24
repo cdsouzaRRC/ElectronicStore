@@ -1,0 +1,119 @@
+{% extends 'Main/Base.html' %}
+{% block content %}
+{% load static %}
+
+{% load cart_tag %}
+
+<div class="container">
+    <form  action="{% url 'placeorder' %}" method="POST" >
+    {% csrf_token %}
+            <br>
+        <h2>Billing Address</h2>
+        <div class="row">
+            <div class="col-md-6">
+            <div class="form-group">
+                <label  style="margin-top: 15px;margin-bottom: 0px;" >First Name</label>
+                <input type="text" required value="{{request.user.first_name}}" id="checkoutfname" class="form-control" name="firstname" id="first" required>
+            </div>
+            </div>
+            <!--  col-md-6   -->
+    
+            <div class="col-md-6">
+            <div class="form-group">
+                <label  style="margin-top: 15px;margin-bottom: 0px;" >Last Name</label>
+                <input type="text" required value="{{request.user.last_name}}" class="form-control" id="checkoutlname" name="lastname" id="last" >
+            </div>
+            </div>
+            <!--  col-md-6   -->
+        </div>
+    
+    
+        <div class="row">
+            <div class="col-md-6">
+            <div class="form-group">
+                <label  style="margin-top: 15px;margin-bottom: 0px; width:800px;">Address</label>
+                <textarea name="address"  required>{{userprofile.address}}</textarea>
+            </div>
+    
+    
+            </div>
+            <!--  col-md-6   -->
+            <div class="col-md-6">
+
+                <div class="form-group">
+                <label style="margin-top: 15px;margin-bottom: 0px;" >PostCode/ZipCode</label>
+                <input type="text" required value="{{userprofile.postcode}}" class="form-control" name="postcode" id="checkoutpin" maxlength="6" required >
+                </div>
+            </div>
+            <!--  col-md-6   -->
+            </div>
+        
+        <!--  row   -->
+    
+    
+        <div class="row">
+            <div class="col-md-6">
+    
+            <div class="form-group">
+                <label style="margin-top: 15px;margin-bottom: 0px;" >State</label>
+                <input type="text" required value="{{userprofile.state}}" id="checkoutstate" class="form-control" name="state" required>
+            </div>
+            </div>
+            <!--  col-md-6   -->
+    
+            <div class="col-md-6">
+            <div class="form-group">
+                <label style="margin-top: 15px;margin-bottom: 0px;">City/Town</label>
+                <input type="text" required value="{{userprofile.town_city}}" id="checkoutcity" name="city" class="form-control"  required>
+            </div>
+    
+            </div>
+            <!--  col-md-6   -->
+        </div>
+        <!--  row   -->
+        <!--  row   -->
+    
+    
+        <div class="row">
+            <div class="col-md-6">
+    
+            <div class="form-group">
+                <label style="margin-top: 15px;margin-bottom: 0px;" >Email address</label>
+                <input type="email" required value="{{request.user.email}}" class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" title="Please Enter a Valid Email" required>
+            </div>
+            </div>
+            <!--  col-md-6   -->
+    
+            <div class="col-md-6">
+            <div class="form-group">
+                <label style="margin-top: 15px;margin-bottom: 0px;" >Phone </label>
+                <input type="text" required value="{{userprofile.phone}}" name="phone" class="form-control" id="checkoutphone" pattern="[7-9]{1}[0-9]{9}"  maxlength="10" title="Please Enter a Valid Phone Number" required>
+            </div>
+    
+            </div>
+            <!--  col-md-6   -->
+        </div>
+        <!--  row   -->
+        <div class="row">
+            <div class="col-md-6">
+            <div class="form-group">
+                <label  style="margin-top: 15px;margin-bottom: 0px; width:800px;">Additional information</label>
+                <textarea placeholder="Notes about your order, e.g. special notes for delivery."  cols="200" rows="3" name="message"></textarea>
+            </div>
+    
+    
+            </div>
+        </div>
+        <input type="text" value="{{order_id}}" name="order_id" hidden/>
+        <input type="text" value="{{payment}}" name="payment" hidden/>
+        <input type="text" value="{{cart_total_amount | add:100}}" name="amount" hidden/>
+        
+    
+    
+        <button type="submit" class="btn btn-primary" style="background-color:#266bf9; float:right;">Submit</button><br><br><br>
+    </form>
+</div>
+
+
+
+{% endblock %}

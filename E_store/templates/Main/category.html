@@ -1,0 +1,109 @@
+{% extends 'Main/Base.html' %}
+{% block content %}
+    <div class="main-wrapper">
+        <div class="shop-category-area pt-100px pb-100px">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="shop-top-bar d-flex">
+                            <div class="shop-tab nav">
+                                <button class="active" data-bs-target="#shop-grid" data-bs-toggle="tab">
+                                    <i class="fa fa-th" aria-hidden="true"></i>
+                                </button>
+                                <button data-bs-target="#shop-list" data-bs-toggle="tab">
+                                    <i class="fa fa-list" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <div class="selecst-shoing-wrap d-flex align-items-center">
+                            </div>
+                        </div>
+                        <div class="shop-bottom-area">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade show active" id="shop-grid">
+                                            <div class="row mb-n-30px">
+                                                {% for prod in product %}
+                                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-xs-6 mb-30px">
+                                                    <div class="product">
+                                                        <span class="badges">
+                                                        <span class="new"></span>
+                                                        </span>
+                                                        <div class="thumb">
+                                                            <a href="/products/{{prod.id}}" class="image">
+                                                                <img src="/{{prod.image}}" alt="Product" />
+                                                                <img class="hover-image" src="/{{prod.image}}" alt="Product" />
+                                                            </a>
+                                                        </div>
+                                                        <div class="content">
+                                                            <span class="category"><a href="/products/{{prod.id}}">{{product.categories}}</a></span>
+                                                            <h5 class="title"><a href="/products/{{prod.id}}">{{prod.name| truncatewords:5}}
+                                                                </a>
+                                                            </h5>
+                                                            <span class="price">
+                                                            <span class="new">₹{{prod.price}}</span>
+                                                            </span>
+                                                        </div>
+                                                        <div class="actions">
+                                                            <a href="{% url 'cart_add' prod.id %}"><button title="Add To Cart" class="action add-to-cart" data-bs-toggle="modal" data-bs-target="#exampleModal-Cart-{{forloop.counter}}"><i
+                                                                class="pe-7s-shopbag"></i></button></a>&nbsp;&nbsp;
+                                                            <button class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal-{{forloop.counter}}"><i class="pe-7s-look"></i></button>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade mb-n-30px" id="shop-list">
+                                            {% for prod in product %}
+                                            <div class="shop-list-wrapper mb-30px">
+                                                <div class="row">
+                                                    <div class="col-md-5 col-lg-5 col-xl-4 mb-lm-30px">
+                                                        <div class="product">
+                                                            <div class="thumb">
+                                                                <a href="/products/{{prod.id}}" class="image">
+                                                                    <img src="/{{prod.image}}" alt="Product" />
+                                                                    <img class="hover-image" src="/{{prod.image}}" alt="Product" />
+                                                                </a>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-7 col-lg-7 col-xl-8">
+                                                        <div class="content-desc-wrap">
+                                                            <div class="content">
+                                                                <span class="category"><a href="#">{{prod.categories}}</a></span>
+                                                                <h5 class="title"><a href="">{{prod.name}}</a></h5>
+                                                                <p>{{prod.description| truncatewords:30 | safe}} </p>
+                                                            </div>
+                                                            <div class="box-inner">
+                                                                <span class="price">
+                                                                <span class="new">₹{{prod.price}}</span>
+                                                                </span>
+                                                                <div class="actions">
+                                                                    <div class="actions">
+                                                                        <a href="{% url 'cart_add' prod.id %}"><button title="Add To Cart" class="action add-to-cart" data-bs-toggle="modal" data-bs-target="#exampleModal-Cart-{{forloop.counter}}"><i
+                                                                            class="pe-7s-shopbag"></i></button></a>&nbsp;&nbsp;
+                                                                        <button class="action quickview" data-link-action="quickview" title="Quick view" data-bs-toggle="modal" data-bs-target="#exampleModal-{{forloop.counter}}"><i class="pe-7s-look"></i></button>
+            
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

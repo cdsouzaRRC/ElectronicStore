@@ -1,0 +1,244 @@
+{% extends 'Main/Base.html' %}
+{% block content %}
+{% load static %}
+
+{% load cart_tag %}
+
+<div class="container">
+    <form  action="{% url 'placeorder' %}" method="POST" >
+    {% csrf_token %}
+            <br>
+        <h2>Billing Address</h2>
+        <div class="row">
+            <div class="col-md-6">
+            <div class="form-group">
+                <label  style="margin-top: 15px;margin-bottom: 0px;" >First Name</label>
+                <input type="text" class="form-control" name="firstname" id="first" required>
+            </div>
+            </div>
+            <!--  col-md-6   -->
+    
+            <div class="col-md-6">
+            <div class="form-group">
+                <label  style="margin-top: 15px;margin-bottom: 0px;" >Last Name</label>
+                <input type="text" class="form-control" name="lastname" id="last" >
+            </div>
+            </div>
+            <!--  col-md-6   -->
+        </div>
+    
+    
+        <div class="row">
+            <div class="col-md-6">
+            <div class="form-group">
+                <label  style="margin-top: 15px;margin-bottom: 0px; width:800px;">Address</label>
+                <textarea name="Text1" cols="200" rows="3" name="address" required></textarea>
+            </div>
+    
+    
+            </div>
+            <!--  col-md-6   -->
+            <div class="col-md-6">
+
+                <div class="form-group">
+                <label style="margin-top: 15px;margin-bottom: 0px;" >PostCode/ZipCode</label>
+                <input type="text" class="form-control" name="postcode" required >
+                </div>
+            </div>
+            <!--  col-md-6   -->
+            </div>
+        
+        <!--  row   -->
+    
+    
+        <div class="row">
+            <div class="col-md-6">
+    
+            <div class="form-group">
+                <label style="margin-top: 15px;margin-bottom: 0px;" >State</label>
+                <input type="text" class="form-control" name="state" required>
+            </div>
+            </div>
+            <!--  col-md-6   -->
+    
+            <div class="col-md-6">
+            <div class="form-group">
+                <label style="margin-top: 15px;margin-bottom: 0px;">City/Town</label>
+                <input type="text" name="city" class="form-control"  required>
+            </div>
+    
+            </div>
+            <!--  col-md-6   -->
+        </div>
+        <!--  row   -->
+        <!--  row   -->
+    
+    
+        <div class="row">
+            <div class="col-md-6">
+    
+            <div class="form-group">
+                <label style="margin-top: 15px;margin-bottom: 0px;" >Email address</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            </div>
+            <!--  col-md-6   -->
+    
+            <div class="col-md-6">
+            <div class="form-group">
+                <label style="margin-top: 15px;margin-bottom: 0px;" >Phone </label>
+                <input type="tel" name="phone" class="form-control"required>
+            </div>
+    
+            </div>
+            <!--  col-md-6   -->
+        </div>
+        <!--  row   -->
+        <div class="row">
+            <div class="col-md-6">
+            <div class="form-group">
+                <label  style="margin-top: 15px;margin-bottom: 0px; width:800px;">Additional information</label>
+                <textarea placeholder="Notes about your order, e.g. special notes for delivery." name="Text1" cols="200" rows="3" name="message"></textarea>
+            </div>
+    
+    
+            </div>
+        </div>
+        <input type="text" value="{{order_id}}" name="order_id" hidden/>
+        <input type="text" value="{{payment}}" name="payment" hidden/>
+        <input type="text" value="{{cart_total_amount | add:100}}" name="amount" hidden/>
+        
+    
+    
+        <button type="submit" class="btn btn-primary" style="background-color:#266bf9; float:right;">Submit</button><br><br><br>
+    </form>
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+
+{% extends 'Main/Base.html' %}
+{% block content %}
+{% load static %}
+
+{% load cart_tag %}
+
+<form  action="{% url 'placeorder' %}" method="POST" >
+    {% csrf_token %}
+    <div class="checkout-area pt-100px pb-100px">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="billing-info-wrap">
+                        <h3>Billing Details</h3>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="billing-info mb-4">
+                                    <label>First Name</label>
+                                    <input type="text" name="firstname" required/>
+                                    <input type="text" value="{{order_id}}" name="order_id" />
+                                    <input type="text" value="{{payment}}" name="payment"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="billing-info mb-4">
+                                    <label>Last Name</label>
+                                    <input type="text" name="lastname" />
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="billing-info mb-4">
+                                    <label>Address</label>
+                                    <textarea name="Text1" cols="40" rows="3" name="address" required></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="billing-info mb-4">
+                                    <label>Town / City</label>
+                                    <input type="text" name="city" required  />
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="billing-info mb-4">
+                                    <label>State</label>
+                                    <input type="text" name="state" required/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="billing-info mb-4">
+                                    <label>Postcode / ZIP</label>
+                                    <input type="text" name="postcode" required/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="billing-info mb-4">
+                                    <label>Phone</label>
+                                    <input type="text" name="phone" required/>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="billing-info mb-4">
+                                    <label>Email Address</label>
+                                    <input type="email" name="email" required/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="additional-info-wrap">
+                            <h4>Additional information</h4>
+                            <div class="additional-info">
+                                <textarea placeholder="Notes about your order, e.g. special notes for delivery." name="message"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 mt-md-30px mt-lm-30px ">
+                    <div class="your-order-area">
+                        <h3>Your order</h3>
+                        <div class="your-order-wrap gray-bg-4">
+                            <div class="your-order-product-info">
+                                <div class="your-order-top">
+                                    <ul>
+                                        <li>Product</li>
+                                        <li>Total</li>
+                                    </ul>
+                                </div>
+                                <div class="your-order-middle">
+                                    <ul>
+                                        {% for key,value in request.session.cart.items %}
+                                        <li>
+                                            <span class="order-middle-left">{{value.name}} X {{value.quantity}}</span> <span
+                                            class="order-price">₹{{ value.price|multiply:value.quantity }} </span></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="your-order-bottom">
+                                    <ul>
+                                        <li class="your-order-shipping">Shipping</li>
+                                        <li>₹100</li>
+                                    </ul>
+                                </div>
+                                <div class="your-order-total">
+                                    <ul>
+                                        <li class="order-total">Grand Total</li>
+                                        <li>₹{{cart_total_amount | add:100}}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Place-order mt-25">
+                            <a class="btn-hover"><button type="submit" class="text-white">Continue</button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,157 @@
+{% extends 'Main/Base.html' %}
+{% block content %}
+{% load static %}
+<div class="product-details-area pt-100px pb-100px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-sm-12 col-xs-12 mb-lm-30px mb-md-30px mb-sm-30px">
+                <div class="swiper-container zoom-top">
+                    <div class="swiper-wrapper">
+                                {% for i in prod.images_set.all %}
+                                <div class="swiper-slide">
+                                    <img class="img-responsive m-auto" src="/{{i.image}}" alt="">
+                                    <a class="venobox full-preview" data-gall="myGallery" href="/{{i.image}}">
+                                        <i class="fa fa-arrows-alt" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="swiper-container mt-20px zoom-thumbs slider-nav-style-1 small-nav">
+                            <div class="swiper-wrapper">
+                                {% for i in prod.images_set.all %}
+                                <div class="swiper-slide">
+                                    <img class="img-responsive m-auto" src="/{{i.image}}" alt="">
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="swiper-buttons">
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-xs-12" data-aos="fade-up" data-aos-delay="200">
+                        <div class="product-details-content quickview-content ml-25px">
+                            <h2>{{prod.name}}</h2>
+                            <div class="pricing-meta">
+                                <ul class="d-flex">
+                                    <li class="new-price"><i class="fa-solid fa-indian-rupee-sign"></i> {{prod.price}}</li>
+                                </ul>
+                            </div>
+                            <div class="pro-details-rating-wrap">
+                                <div class="rating-product">
+                                    {% if review|length > 0 %}
+                                        <div class="rectangle" style="height: 30px;width: 60px;background-color:#266bf9;border-radius: 5px;padding:2px; color:#FFFFFF;text-align: center;
+                                                                            padding-top: 4px;">
+                                                                            
+                                            {{average|floatformat}} <i class="fa-solid fa-star"></i>                                   
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <span class="read-review" style="margin-top:6px;"><a class="reviews" href="#">({{count}} Customer Review)</a></span>
+                            </div>
+                            <div class="pro-details-quality">
+                                <div class="pro-details-cart">
+                                    <a href="{% url 'cart_add' prod.id %}"><button class="add-cart"> Add To
+                                        Cart</button></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="description-review-wrapper">
+                            <div class="description-review-topbar nav">
+                                <button data-bs-toggle="tab" data-bs-target="#des-details2">Information</button>
+                                <button class="active" data-bs-toggle="tab" data-bs-target="#des-details1">Description</button>
+                                <button data-bs-toggle="tab" data-bs-target="#des-details3">Reviews ({{count}})</button>
+                            </div>
+                            <div class="tab-content description-review-bottom">
+                                <div id="des-details2" class="tab-pane">
+                                    <div class="product-anotherinfo-wrapper text-start">
+                                        <ul>
+                                          <li>{{prod.information | safe}}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div id="des-details1" class="tab-pane active">
+                                    <div class="product-description-wrapper">
+                                        <p> {{prod.description | safe}}</p>
+                                    </div>
+                                </div>
+                                <div id="des-details3" class="tab-pane">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="review-wrapper">
+                                                {% if review|length < 1 %}
+                                                <p>No Review Found</p>
+                                                {% else %}
+                                                    {% for r in review %}
+                                                    <div class="single-review">
+                                                        <div class="review-content">
+                                                            <div class="review-top-wrap">
+                                                                <div class="review-left">
+                                                                    <div class="review-name">
+                                                                        <h4>{{r.name}}</h4>
+                                                                    </div>
+                                                                    <div class="rating-product">
+                                                                        <div class="rectangle" style="height: 25px;width: 40px;background-color:#266bf9;border-radius: 5px;padding:2px; color:#FFFFFF;text-align: center;
+                                                                        padding-top: 4px;"> {{r.rating}} <i class="fa-solid fa-star"></i> </div>   
+                                                                    </div>
+                                                              </div>
+                                                            </div>
+                                                            <div class="review-bottom">
+                                                                <p style=" margin-left: 30px;">{{r.message}}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        {% if user.is_authenticated %}
+                                            <div class="col-lg-12">
+                                                <div class="ratting-form-wrapper pl-50">
+                                                    <h3>Add a Review</h3><br>
+                                                        <div class="ratting-form">
+                                                            <form action="" method="POST">
+                                                                {% csrf_token %}
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="rating-form-style">
+                                                                            <input placeholder="Name" type="text" id="reviewname" name="name" required/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="rate">
+                                                                            <input type="radio" id="star5" name="rating" value="5" />
+                                                                            <label for="star5" title="text">5 stars</label>
+                                                                            <input type="radio" id="star4" name="rating" value="4" />
+                                                                            <label for="star4" title="text">4 stars</label>
+                                                                            <input type="radio" id="star3" name="rating" value="3" />
+                                                                            <label for="star3" title="text">3 stars</label>
+                                                                            <input type="radio" id="star2" name="rating" value="2" />
+                                                                            <label for="star2" title="text">2 stars</label>
+                                                                            <input type="radio" id="star1" name="rating" value="1" required/>
+                                                                            <label for="star1" title="text">1 star</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <div class="rating-form-style form-submit">
+                                                                            <textarea name="message" placeholder="Message" required ></textarea>
+                                                                            <button class="btn btn-primary btn-hover-color-primary " type="submit" value="Submit">Submit</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>   
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}
